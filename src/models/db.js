@@ -8,7 +8,7 @@ const environmentVariable = process.env.NODE_ENV;
 
 let pool;
 if (environmentVariable === "development" || "test") {
-  connectionString = config["development"];
+  let connectionString = config["development"];
   pool = new pg.Pool({
     ...connectionString,
     max: 20,
@@ -16,7 +16,7 @@ if (environmentVariable === "development" || "test") {
     connectionTimeoutMillis: 2000,
   });
 } else {
-  connectionString = process.env.DB_URL;
+  let connectionString = process.env.DB_URL;
   pool = new Pool({
     connectionString,
     rejectUnauthorized: false,
