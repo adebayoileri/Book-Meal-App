@@ -4,8 +4,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const environmentVariable = process.env.NODE_ENV;
+console.log(environmentVariable)
 let pool;
-if (environmentVariable === "development" || "test") {
+if(process.env.NODE_ENV  === "production"){
+  console.log("production")
+  let connectionString =
+    "postgres://oaprqywd:QpVzjaDz4UYVfMDJb2wC6G9G30i0g4Lb@suleiman.db.elephantsql.com:5432/oaprqywd";
+  pool = new pg.Pool({
+    connectionString,
+    rejectUnauthorized: false,
+  });
+  console.log(connectionString);
+}
+if (process.env.NODE_ENV === "development" || "test") {
   let connectionString = config["development"];
   pool = new pg.Pool({
     ...connectionString,
@@ -14,15 +25,7 @@ if (environmentVariable === "development" || "test") {
     connectionTimeoutMillis: 2000,
   });
   console.log(connectionString);
-} else {
-  let connectionString =
-    "postgres://oaprqywd:QpVzjaDz4UYVfMDJb2wC6G9G30i0g4Lb@suleiman.db.elephantsql.com:5432/oaprqywd";
-  pool = new pg.Pool({
-    connectionString: connectionString,
-    rejectUnauthorized: false,
-  });
-  console.log(connectionString);
-}
+} 
 
 // console.log({...connectionString});
 pool.on("connect", () => {});
