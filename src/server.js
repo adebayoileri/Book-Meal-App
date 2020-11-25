@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import morgan from "morgan";
-// import path from "path"
+import path from "path"
 import cors from "cors";
 import profileRoute from "./routes/userRoutes";
 import menuRoute from "./routes/menuRoutes";
