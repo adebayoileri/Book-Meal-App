@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  position: fixed;
+  z-index: 10;
+  width: 100vw;
+  padding: 0 10%;
+}
+.menu {
+  display: none;
+}
+.nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  /* border: 1px solid blue; */
+  width: 30%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+}
+.nav ul li {
+  cursor: pointer;
+  padding: 25px 0;
+  font-weight: 700;
+  /* border-bottom-width: 3px;border-bottom: 3px solid var(--lime-green); */
+}
+.logo {
+  width: 60px;
+  height: 50px;
+}
+.landing-box {
+  background: url("https://res.cloudinary.com/codeinstd/image/upload/v1605877886/Group_2_2x_v3cngf.png");
+  background-size: cover;
+  /* background-color: rgba(0, 0, 0, 0.4); */
+}
+/* .landing-box{
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+} */
+.login-page {
+  background: url("https://res.cloudinary.com/codeinstd/image/upload/v1605876300/pexels-ella-olsson-1640770_2x_kzjv8c.png");
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.menu {
+  color: white;
+}
+.foodlogo {
+  margin-top: 0;
+  width: 40%;
+  height: 100%;
+}
+.featured-restaraunt {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4% 0 4% 4%;
+  overflow-x: auto;
+  /* overflow-y: hidden;
+    white-space: nowrap; */
+}
+.featured-restaraunt::-webkit-scrollbar {
+  display: none;
+}
+
+.featured-restaraunt > div:nth-child(1) {
+  margin-left: 0;
+}
+.featured-restaraunt > div {
+  width: 320px;
+  margin: 20px;
+  flex: 0 0 auto;
+  /* border: 2px solid #000; */
+}
+
+@media screen and (max-width: 425px) {
+  .menu {
+    display: flex;
+    cursor: pointer;
+  }
+  #nav-links {
+    display: none;
+  }
+}

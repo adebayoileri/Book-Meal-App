@@ -1,0 +1,64 @@
+{
+  "name": "meal_booking_app",
+  "version": "1.0.0",
+  "description": "Book-A-Meal is an application that allows customers to make food orders and helps the food",
+  "main": "server.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production npm run build && node ./build/app.js",
+    "dev:server": "cross-env NODE_ENV=development nodemon --exec babel-node src/server.js",
+    "frontend": "npm run start --prefix client",
+    "start:dev": "concurrently \"npm run start:server\" \"npm run frontend\" ",
+    "build": "npm run clean && npm run build-babel",
+    "clean": "rm -rf build && mkdir build",
+    "fresh": "rm -rf node_modules",
+    "build-babel": "babel -d ./build ./src -s",
+    "test": "cross-env NODE_ENV=test nyc mocha --require @babel/register --require @babel/polyfill src/tests --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "migrate": "babel-node ./src/migrations/index.js",
+    "rollback": "babel-node ./src/migrations/dropdb.js",
+    "migrate:db": "npm run rollback && npm run migrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Teencodeprojects/Meal_Booking_App.git"
+  },
+  "author": "Adebayo Ilerioluwa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Teencodeprojects/Meal_Booking_App/issues"
+  },
+  "homepage": "https://github.com/Teencodeprojects/Meal_Booking_App#readme",
+  "dependencies": {
+    "@babel/cli": "^7.12.7",
+    "@babel/core": "^7.12.7",
+    "@babel/node": "^7.12.6",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/runtime": "^7.12.5",
+    "@hapi/joi": "^17.1.1",
+    "@sendgrid/mail": "^7.4.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "chai-http": "^4.3.0",
+    "concurrently": "^5.3.0",
+    "cors": "^2.8.5",
+    "cross-env": "^6.0.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.3.0",
+    "pg-connection-string": "^2.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "coveralls": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "mocha": "^6.2.3",
+    "nodemon": "^1.19.4",
+    "nyc": "^14.1.1"
+  }
+}
