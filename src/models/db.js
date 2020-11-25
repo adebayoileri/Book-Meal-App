@@ -4,14 +4,13 @@ import dotenv from "dotenv";
 
 dotenv.config();
 let pool;
-if(process.env.NODE_ENV  === "production"){
-  // console.log("production")
-  let connectionString = config["production"];
+if(process.env.NODE_ENV === "production"){
+  console.log("production")
+  let connectionString = "postgres://pdrfhymeltqcgp:533ddddd36628b8510d8051a328b3c3d70c99e00867e093c572f00e70a6e42f5@ec2-34-237-247-76.compute-1.amazonaws.com:5432/dck6hohg77jtpb";
+  console.log({...connectionString});
   pool = new pg.Pool({
-    ...connectionString,
-    rejectUnauthorized: false,
+    connectionString: connectionString,
   });
-  // console.log(connectionString);
 }
 if (process.env.NODE_ENV === "development" || "test") {
   let connectionString = config["development"];
