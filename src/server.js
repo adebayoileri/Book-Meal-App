@@ -13,8 +13,8 @@ import catererRoute from "./routes/catererRoutes";
 
 dotenv.config();
 const app = express();
-// const frontend  = path.join(__dirname, "../client/build")
-// app.use(express.static(frontend))
+const frontend  = path.join(__dirname, "../client/build")
+app.use(express.static(frontend))
 
 app.use(cors())
 app.use(express.json());
