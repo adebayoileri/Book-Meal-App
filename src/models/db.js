@@ -13,12 +13,15 @@ if (environmentVariable === "development" || "test") {
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
   });
+  console.log(connectionString);
 } else {
-  let connectionString = process.env.DB_URL;
+  let connectionString =
+    "postgres://oaprqywd:QpVzjaDz4UYVfMDJb2wC6G9G30i0g4Lb@suleiman.db.elephantsql.com:5432/oaprqywd";
   pool = new pg.Pool({
-    connectionString,
+    connectionString: connectionString,
     rejectUnauthorized: false,
   });
+  console.log(connectionString);
 }
 
 // console.log({...connectionString});
