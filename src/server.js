@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import morgan from "morgan";
-import path from "path"
+// import path from "path"
 import cors from "cors";
 import profileRoute from "./routes/userRoutes";
 import menuRoute from "./routes/menuRoutes";
@@ -13,8 +13,8 @@ import catererRoute from "./routes/catererRoutes";
 
 dotenv.config();
 const app = express();
-const frontend  = path.join(__dirname, "../client/build")
-app.use(express.static(frontend))
+// const frontend  = path.join(__dirname, "../client/build")
+// app.use(express.static(frontend))
 
 app.use(cors())
 app.use(express.json());
