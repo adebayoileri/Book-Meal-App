@@ -3,9 +3,7 @@ import config from "../config/config";
 import dotenv from "dotenv";
 
 dotenv.config();
-let connectionString;
 const environmentVariable = process.env.NODE_ENV;
-
 let pool;
 if (environmentVariable === "development" || "test") {
   let connectionString = config["development"];
@@ -17,7 +15,7 @@ if (environmentVariable === "development" || "test") {
   });
 } else {
   let connectionString = process.env.DB_URL;
-  pool = new Pool({
+  pool = new pg.Pool({
     connectionString,
     rejectUnauthorized: false,
   });
