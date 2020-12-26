@@ -36,7 +36,7 @@ export default function SignUp() {
   const PostSignIn = async () => {
     setSubmitted(true);
     await axios
-      .post(`auth/signup`, {
+      .post(`https://bookmealapp.herokuapp.com/auth/signup`, {
         ...user,
         role: "customer",
       })

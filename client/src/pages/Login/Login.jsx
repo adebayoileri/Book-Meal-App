@@ -37,7 +37,7 @@ export default function Login() {
   const PostLogin = async () => {
     setSubmitted(true);
     await axios
-      .post(`${localServer}auth/login`, {
+      .post(`https://bookmealapp.herokuapp.com/auth/login`, {
         ...user,
       })
       .then((result) => {
