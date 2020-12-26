@@ -15,8 +15,8 @@
     "build-babel": "babel -d ./build ./src -s",
     "test": "cross-env NODE_ENV=test nyc mocha --require @babel/register --require @babel/polyfill src/tests --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "migrate": "cross-env NODE_ENV=development babel-node ./src/migrations/index.js",
-    "rollback": "cross-env NODE_ENV=development babel-node ./src/migrations/dropdb.js",
+    "migrate": "babel-node ./src/migrations/index.js",
+    "rollback": "babel-node ./src/migrations/dropdb.js",
     "migrate:db": "npm run rollback && npm run migrate",
     "alter:db": "cross-env NODE_ENV=development babel-node ./src/migrations/altertable.js"
   },
