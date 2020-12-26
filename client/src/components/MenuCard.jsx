@@ -51,6 +51,7 @@ const MenuCard = (props) => {
               price: props.price,
               quantity: props.quantity,
               imageurl: props.imageurl,
+              caterer_id : props.catererId
             });
           }}
         >

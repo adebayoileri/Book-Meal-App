@@ -63,6 +63,8 @@ orderitem(
   id UUID PRIMARY KEY NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
   order_id UUID NOT NULL,
   meal_id UUID NOT NULL,
+  mealName VARCHAR(50) NOT NULL,
+  mealImg VARCHAR(50) NOT NULL,
   price int NOT NULL,
   quantity int NOT NULL DEFAULT 1,
   caterer_id UUID NOT NULL,

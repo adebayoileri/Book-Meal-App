@@ -4,7 +4,7 @@ import { checkToken, checkCaterer } from "../middleware";
 
 const router = Router();
 
-router.get("/menu", menuController.getMenu);
+router.get("/menu", menuController.getMenu); //done
 
 router.post("/menu", checkToken, checkCaterer, menuController.addMealToMenu);
 

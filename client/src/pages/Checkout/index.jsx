@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
+import axios from "axios"
 import { useAuth, useCart } from "../../context";
 import {
   Text,
@@ -13,11 +14,12 @@ import {
   chakra,
 } from "@chakra-ui/react";
 import { capitalize, logOut } from "../../utils";
-
+const userToken = JSON.parse(localStorage.getItem("userData"))["token"]
+axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
 const Checkout = () => {
   const { authTokens } = useAuth();
   const { cartItems, setCartItems } = useCart();
-  const userData = authTokens["data"];
+  const userData = authTokens?.["data"];
   const subTotal =
     cartItems.length > 0 &&
     cartItems.reduce((a, b) => ({ price: Number(a.price) + Number(b.price) }))
@@ -25,6 +27,17 @@ const Checkout = () => {
       // eslint-disable-next-line
   const [deliveryAddress, setDeliveryAddress] = useState(null);
   const [payMethod, setPayMethod] = useState("pod");
+
+  const placeOrder =  async () => {
+    const result  = await axios.post('https://bookmealapp.herokuapp.com/api/v1/orders/', {
+      deliveryAddress,
+      meals: cartItems.length > 0 && cartItems
+    })
+    if(result.status === 200){
+      window.location.href = `/orders/${result.data["orderId"]}`;
+    }
+    // result.data["orderId"]
+  }
   return (
     <>
       <Header />
@@ -35,10 +48,10 @@ const Checkout = () => {
         <Box p={4} background={"#f5f5f5"} mx="auto" my="40px">
           <Text fontSize="2xl">Contact details</Text>
           <Text fontSize="xl">
-            Fullname: {capitalize(userData.first_name)}{" "}
-            {capitalize(userData.last_name)}
+            Fullname: {capitalize(userData?.first_name)}{" "}
+            {capitalize(userData?.last_name)}
           </Text>
-          <Text fontSize="xl">Email: {userData.email}</Text>
+          <Text fontSize="xl">Email: {userData?.email}</Text>
           <Text color={"#FF8908"}>
             Not your Account?{" "}
             <chakra.a as="button" onClick={() => logOut()}>
@@ -77,8 +90,8 @@ const Checkout = () => {
           <Text fontSize="2xl">Order Summary</Text>
           <Stack spacing={3}>
             {cartItems.length > 0 &&
-              cartItems.map((item) => (
-                <Box px={4}>
+              cartItems.map((item, index) => (
+                <Box px={4} key={index}>
                   <Text>
                     {item.name}- ₦{item.price}
                   </Text>
@@ -121,7 +134,10 @@ const Checkout = () => {
                 width="xl"
                 background={"#3bb75e"}
                 mt={2}
-                disabled={!(cartItems.length > 0)}
+                disabled={!(cartItems.length > 0) || !deliveryAddress}
+                onClick={() => {
+                  placeOrder()
+                }}
               >
                 Place Order
               </Button>

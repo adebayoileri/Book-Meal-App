@@ -6,6 +6,38 @@ import pool from "../models/db";
  */
 
 class catererController {
+    /**
+   *
+   * @param {object} req request payload
+   * @param {object} res response object sent to client
+   */
+
+  static async acceptOrder(req, res) {
+    const orderId = req.params.id;
+    const { id } = req.user;
+    try {
+      const findOrderQuery = `SELECT * FROM orders WHERE id=$1`;
+      const value = [orderId];
+      const orderFound = await pool.query(findOrderQuery, value);
+      if (orderFound.rows[0] && orderFound.rows[0].user_id === id) {
+        const cancelOrderQuery = `UPDATE orders SET status='accepted', updatedat=CURRENT_TIMESTAMP WHERE id=$1 RETURNING *`;
+        const value = [orderId];
+        const canceledOrder = await pool.query(cancelOrderQuery, value);
+        return canceledOrder.rows[0].status &&
+          canceledOrder.rows[0].status === "accepted"
+          ? res.status(200).json({
+              status: "success",
+              message: "order accepted successfully",
+              code: 200,
+            })
+          : res.status(400).json({
+              status: "failed",
+              message: "order couldn't be accepted",
+              code: 400,
+            });
+      }
+    } catch (error) {}
+  }
   static async getAllOrders(req, res) {
     const { id } = req.user;
     try {

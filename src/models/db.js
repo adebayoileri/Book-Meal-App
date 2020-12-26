@@ -1,4 +1,5 @@
 import { Client, Pool } from "pg";
+import config from "../config/config";
 import dotenv from "dotenv";
 
 dotenv.config();

@@ -141,23 +141,24 @@ class orderController {
         });
       }
       let allOrders = [];
-      const ordersData =
+      // const ordersData =
         mealData &
-        mealData.map(async ({ quantity, id, caterer_id, price }) => {
-          const CreateOrderItemQuery = `INSERT INTO orderitem (order_id, meal_id, caterer_id, quantity, price) VALUES($1, $2, $3, $4, $5) RETURNING *`;
-          const values = [order_id, id, caterer_id, quantity, price];
+        mealData.map(async ({ quantity, id, caterer_id, price, name, imageurl }) => {
+          const CreateOrderItemQuery = `INSERT INTO orderitem (order_id, meal_id, caterer_id, quantity, price, mealName, mealImg) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+          const values = [order_id, id, caterer_id, quantity, price, name, imageurl];
           const newOrderItem = await pool.query(CreateOrderItemQuery, values);
           // console.log("new",newOrderItem.rows[0]);
           allOrders.push(newOrderItem.rows[0]);
-          console.log("all Ordes", allOrders);
+          // console.log("all Orders", allOrders);
           return allOrders;
           // console.log(allOrders)
         });
-      console.log("oreder data", ordersData);
+      // console.log("oreder data", ordersData);
       return res.status(200).json({
         status: "success",
         message: "new order created",
         orderId: order_id,
+        deliveryAddress
       });
     } catch (error) {
       console.log(error);

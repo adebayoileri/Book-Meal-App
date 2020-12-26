@@ -15,7 +15,7 @@ class mealController {
    * @returns {object} created meal object
    */
   static async createMeal(req, res) {
-    const { name, description, imageUrl, quantity, price } = req.body;
+    const { name, description, imageUrl, quantity, price, caterer_id } = req.body;
     const { id } = req.user;
     if (!name || !description || !imageUrl || !quantity || !price) {
       return res.status(400).json({
@@ -27,7 +27,7 @@ class mealController {
 
     try {
       const createMealQuery = `INSERT INTO meals(name, description, imageUrl, quantity, price, caterer_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *`;
-      const values = [name, description, imageUrl, quantity, price, id];
+      const values = [name, description, imageUrl, quantity, Number(price), caterer_id];
       const newMeal = await pool.query(createMealQuery, values);
       console.log("create");
       return res.status(201).json({

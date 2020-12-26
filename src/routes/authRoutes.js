@@ -3,7 +3,7 @@ import Authentication from '../controllers/auth.controller';
 
 const router = Router();
 
-router.post('/signup', Authentication.signUp);
-router.post('/login', Authentication.login);
+router.post('/signup', Authentication.signUp); //done
+router.post('/login', Authentication.login);// done
 
 export default router;

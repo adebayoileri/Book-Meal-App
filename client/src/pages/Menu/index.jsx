@@ -19,7 +19,7 @@ import {
   useDisclosure,
   Center,
 } from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
+// import { AddIcon } from "@chakra-ui/icons";
 import "../index.css";
 import Header from "../../components/Header";
 const MenuCard = lazy(() => import("../../components/MenuCard"));
@@ -47,7 +47,7 @@ const Menu = (props) => {
   };
   const getRestaurantMenu = async () => {
     const response = await axios.get(
-      `http://localhost:8080/api/v1/meals/r/${restaurantId}`
+      `https://bookmealapp.herokuapp.com/api/v1/meals/r/${restaurantId}`
     );
     if (response.status === 200) {
       setMenu(response.data["data"]);
@@ -55,7 +55,7 @@ const Menu = (props) => {
   };
   const getRestaurantData = async () => {
     const restaurantData = await axios.get(
-      `http://localhost:8080/api/v1/restaurants/${restaurantId}`
+      `https://bookmealapp.herokuapp.com/api/v1/restaurants/${restaurantId}`
     );
     if (restaurantData.status === 200) {
       setRestData(restaurantData.data["data"]);
@@ -74,7 +74,7 @@ const Menu = (props) => {
         <Box
           w="full"
           pb="12"
-          mt="12"
+          mt="12rem"
           pt="12"
           mx="auto"
           maxW="1200px"
@@ -86,15 +86,15 @@ const Menu = (props) => {
               spacing="5"
               as="nav"
               ml="24px"
-              display={{ base: "none", md: "flex" }}
+              display={{ md: "flex" }}
             >
               <Stack spacing="10px">
-                <Text fontSize="3xl">
+                <Text fontSize={{base: "lg", md: "2xl"}}>
                   {restData.name} - {restData.location}
                 </Text>
-                <Text fontSize="2xl"> {restData.description}</Text>
+                <Text fontSize={{base: "lg", md:"2xl"}}> {restData.description}</Text>
               </Stack>
-              <Button rightIcon={<AddIcon />} onClick={() => handleClick()}>
+              <Button onClick={() => handleClick()} size="lg">
                 View Cart
               </Button>
             </HStack>
@@ -111,6 +111,7 @@ const Menu = (props) => {
                     openCart={openCart}
                     price={meal.price}
                     quantity={meal.quantity}
+                    catererId={meal.caterer_id}
                   />
                 ))
               ) : (

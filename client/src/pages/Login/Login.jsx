@@ -81,14 +81,14 @@ export default function Login() {
         <Box w="full" pb="12" pt="3" mx="auto" maxW="1200px" px={6} bg="white">
           <Box maxW="760px" mx="auto" textAlign="center">
             <chakra.h2 fontSize="5xl">Login</chakra.h2>
-            <Alert status="info">
+            {/* <Alert status="info">
               <AlertIcon />
               Here to test ?{" "}
               <span role="img" aria-label="wink">
                 😉{" "}
               </span>{" "}
               email : ade@g.com password: password
-            </Alert>
+            </Alert> */}
 
             <Stack spacing="3">
               <FormControl id="email" isRequired>
