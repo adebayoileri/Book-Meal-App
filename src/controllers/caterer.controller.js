@@ -19,9 +19,9 @@ class catererController {
       const findOrderQuery = `SELECT * FROM orders WHERE id=$1`;
       const value = [orderId];
       const orderFound = await pool.query(findOrderQuery, value);
-      if (orderFound.rows[0] && orderFound.rows[0].user_id === id) {
+      // if (orderFound.rows[0] && orderFound.rows[0].vendor_id === id) {
         const cancelOrderQuery = `UPDATE orders SET status='accepted', updatedat=CURRENT_TIMESTAMP WHERE id=$1 RETURNING *`;
-        const value = [orderId];
+        // const value = [orderId];
         const canceledOrder = await pool.query(cancelOrderQuery, value);
         return canceledOrder.rows[0].status &&
           canceledOrder.rows[0].status === "accepted"
@@ -35,7 +35,7 @@ class catererController {
               message: "order couldn't be accepted",
               code: 400,
             });
-      }
+      // }
     } catch (error) {}
   }
   static async getAllOrders(req, res) {

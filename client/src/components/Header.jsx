@@ -51,6 +51,9 @@ const HeaderContent = (props) => {
                 <MenuItem as={Link} href="/dashboard">
                   Dashboard
                 </MenuItem>
+                <MenuItem as={Link} href="/restaurants">
+                  Restaurants
+                </MenuItem>
                 <MenuItem as={Link} href="/dashboard">
                   My Account
                 </MenuItem>

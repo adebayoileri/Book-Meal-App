@@ -99,7 +99,7 @@ export default function OrderInfo(props) {
             <Button onClick={() => cancelOrder()}>Cancel Order &times; </Button>
             <Box>
               <Box px={4}>
-                <Text fontSize="md">Subtotal: ₦</Text>
+                {/* <Text fontSize="md">Subtotal: ₦{}</Text> */}
                 <Text fontSize="md">
                   Delivery Address: {order?.deliveryaddress}
                 </Text>

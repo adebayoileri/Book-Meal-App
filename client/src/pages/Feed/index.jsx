@@ -15,6 +15,7 @@ const Feed = () => {
   const [restaurants, setRestaurants] = useState();
   const getAllRestaurants = async () => {
     const response = await axios.get(
+      // `https://bookmealapp.herokuapp.com/api/v1/restaurants`
       `https://bookmealapp.herokuapp.com/api/v1/restaurants`
     );
     if(response.status === 200){

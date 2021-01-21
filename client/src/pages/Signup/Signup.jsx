@@ -12,10 +12,11 @@ import {
   useToast,
   Text,
   Link,
+  Checkbox
 } from "@chakra-ui/react";
 import "../index.css";
 
-// const baseUrl = `http://localhost:8080/api/v1/auth/`;
+// const baseUrl = `https://bookmealapp.herokuapp.com/api/v1/auth/`;
 
 export default function SignUp() {
   const [user, setUser] = React.useState({
@@ -26,6 +27,7 @@ export default function SignUp() {
   });
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [submitted, setSubmitted] = React.useState(false);
+  const [isCaterer, setIsCaterer] = React.useState(false)
   const toast = useToast();
 
   const handleFieldChange = (name) => (event) => {
@@ -36,9 +38,11 @@ export default function SignUp() {
   const PostSignIn = async () => {
     setSubmitted(true);
     await axios
-      .post(`https://bookmealapp.herokuapp.com/auth/signup`, {
+    .post(`https://bookmealapp.herokuapp.com/api/v1/auth/signup`, {
+
+      // .post(`https://bookmealapp.herokuapp.com/api/v1/auth/signup`, {
         ...user,
-        role: "customer",
+        role: isCaterer ? "caterer": "customer",
       })
       .then((result) => {
         console.log({ result });
@@ -72,7 +76,9 @@ export default function SignUp() {
       });
   };
   if (isLoggedIn) {
-    // return (window.location.href = "/dashboard");
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 1500);
     console.log("sucess");
   }
 
@@ -122,6 +128,11 @@ export default function SignUp() {
                   onChange={handleFieldChange("password")}
                 />
               </FormControl>
+              <Checkbox size="md" colorScheme="orange" isChecked={isCaterer} onChange={(e) =>{
+                setIsCaterer(e.target.checked)
+              }}>
+                Are you a Food Vendor
+              </Checkbox>
             </Stack>
             <Button
               mt={4}

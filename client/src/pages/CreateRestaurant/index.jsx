@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
 import axios from "axios";
-import { useAuth } from "../../context/auth";
 import {
   Container,
   Text,
@@ -15,36 +14,30 @@ import {
 const userToken = JSON.parse(localStorage.getItem("userData"))["token"];
 axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
 
-export default function CreateMeal() {
-  const { authTokens } = useAuth();
+export default function CreateRestaurant() {
   const [submitted, setSubmitted] = React.useState(false);
-  const [meal, setMeal] = React.useState({
+  const [rest, setRest] = React.useState({
     name: null,
-    description: null,
     imageUrl: null,
-    quantity: 100,
-    price: null,
-    caterer_id: authTokens?.["data"]?.id,
+    description: null,
+    location: null,
   });
   const toast = useToast();
   const handleFieldChange = (name) => (event) => {
-    if (name === "price") {
-      setMeal({ ...meal, [name]: Number(event.target.value) });
-    }
-    setMeal({ ...meal, [name]: event.target.value });
+    setRest({ ...rest, [name]: event.target.value });
   };
-  const createMeal = async () => {
+  const CreateRestaurant = async () => {
     setSubmitted(true);
     await axios
-      .post(`https://bookmealapp.herokuapp.com/api/v1/meals`, {
-        ...meal,
+      .post(`https://bookmealapp.herokuapp.com/api/v1/caterer/restaraunts/create`, {
+        ...rest,
       })
       .then((result) => {
         console.log({ result });
-        if (result.status === 201) {
+        if (result.status === 200) {
           toast({
-            title: "Meal created.",
-            description: "Your meal has been successfully created",
+            title: "Restaurant created.",
+            description: "Your restaurant has been successfully created",
             status: "success",
             duration: 4000,
             isClosable: true,
@@ -70,44 +63,44 @@ export default function CreateMeal() {
       <Header />
       <Container maxW="xl" mt="6rem" alignContent="center">
         <Text textAlign="left" fontSize="4xl" color={"#20ac76"}>
-          Create A Meal
+          Create A Restaurant
         </Text>
         <Stack spacing="3">
-          <FormControl id="meal-name" isRequired>
-            <FormLabel>Meal Name</FormLabel>
+          <FormControl id="rest-name" isRequired>
+            <FormLabel>Restaurant Name</FormLabel>
             <Input
               focusBorderColor="orange.400"
-              placeholder="Meal name"
-              value={meal.name}
+              placeholder="Restaurant name"
+              value={rest.name}
               onChange={handleFieldChange("name")}
             />
           </FormControl>
           <FormControl id="description" isRequired>
-            <FormLabel>Meal description</FormLabel>
+            <FormLabel>Restaurant description</FormLabel>
             <Input
               focusBorderColor="orange.400"
-              placeholder="Meal Description"
-              value={meal.description}
+              placeholder="Restaurant Description"
+              value={rest.description}
               onChange={handleFieldChange("description")}
             />
           </FormControl>
           <FormControl id="Image URL" isRequired>
-            <FormLabel>Image URL</FormLabel>
+            <FormLabel>Restaurant Image URL</FormLabel>
             <Input
               errorBorderColor="red.500"
               focusBorderColor="orange.400"
               placeholder="URL for restaurant poster"
-              value={meal.imageUrl}
+              value={rest.imageUrl}
               onChange={handleFieldChange("imageUrl")}
             />
           </FormControl>
-          <FormControl id="password" isRequired>
-            <FormLabel>Price</FormLabel>
+          <FormControl id="location" isRequired>
+            <FormLabel>Loaction</FormLabel>
             <Input
               focusBorderColor="orange.400"
-              placeholder="Price"
-              value={meal.price}
-              onChange={handleFieldChange("price")}
+              placeholder="Restaurant Location"
+              value={rest.location}
+              onChange={handleFieldChange("location")}
             />
           </FormControl>
         </Stack>
@@ -118,15 +111,15 @@ export default function CreateMeal() {
           w={{ base: "100%", md: "60%" }}
           ml={{ base: "20%" }}
           onClick={() => {
-            createMeal();
+            CreateRestaurant();
           }}
           disabled={
-            !meal.name || !meal.imageUrl || !meal.description || !meal.price
+            !rest.name || !rest.imageUrl || !rest.description || !rest.location
           }
           isLoading={submitted}
           type="submit"
         >
-          Create Meal
+          Create Restaurant
         </Button>
       </Container>
     </>

@@ -15,6 +15,8 @@ const Menu = lazy(() => import("./pages/Menu"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const OrderInfo = lazy(() => import("./pages/OrderInfo"));
 const CreateMeal = lazy(() => import("./pages/CreateMeal"));
+const CreateRestaraunt = lazy(() => import("./pages/CreateRestaurant"));
+
 
 const hist = createBrowserHistory();
 function App() {
@@ -56,6 +58,7 @@ function App() {
                 <PrivateRoute path="/r/:id" component={Menu} />
                 <PrivateRoute path="/orders/:id" component={OrderInfo} />
                 <PrivateRoute path="/meal/create" component={CreateMeal} />
+                <PrivateRoute path="/restaurant/create" component={CreateRestaraunt} />
               </Switch>
             </Router>
           </Suspense>

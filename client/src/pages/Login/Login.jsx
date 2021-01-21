@@ -10,16 +10,16 @@ import {
   Stack,
   Button,
   useToast,
-  Alert,
-  AlertIcon,
+  // Alert,
+  // AlertIcon,
   Link,
   Text,
 } from "@chakra-ui/react";
 import "../index.css";
 require("dotenv").config();
 
-// const baseUrl = `http://localhost:8080/api/v1/auth/`;
-const localServer = `http://localhost:8080/api/v1/`;
+// const baseUrl = `https://bookmealapp.herokuapp.com/api/v1/auth/`;
+// const localServer = `https://bookmealapp.herokuapp.com/api/v1/`;
 export default function Login() {
   const [user, setUser] = React.useState({
     email: null,
@@ -37,7 +37,9 @@ export default function Login() {
   const PostLogin = async () => {
     setSubmitted(true);
     await axios
-      .post(`https://bookmealapp.herokuapp.com/auth/login`, {
+      // .post(`https://bookmealapp.herokuapp.com/api/v1/auth/login`, {
+    .post(`https://bookmealapp.herokuapp.com/api/v1/auth/login`, {
+
         ...user,
       })
       .then((result) => {
